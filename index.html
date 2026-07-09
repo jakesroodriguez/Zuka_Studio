@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html class="light" lang="eu">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Zuka Studio - Dantza Akademia</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    tertiary: "#5c5f61", "primary-container": "#C9CDD2", primary: "#111315", "on-secondary-fixed-variant": "#111315", "on-secondary-container": "#111315", "surface-container-highest": "#FAFAFA", "outline-variant": "#C9CDD2", "error-container": "#ffdad6", "tertiary-container": "#C9CDD2", "on-background": "#111315", "on-tertiary": "#FAFAFA", background: "#FAFAFA", "primary-fixed": "#111315", "on-primary-fixed-variant": "#FAFAFA", "inverse-on-surface": "#FAFAFA", "surface-tint": "#111315", "secondary-container": "#C9CDD2", "on-error-container": "#93000a", "on-surface": "#111315", "on-primary-container": "#FAFAFA", "surface-dim": "#FAFAFA", error: "#ba1a1a", "secondary-fixed-dim": "#C9CDD2", "surface-container-high": "#FAFAFA", "tertiary-fixed": "#C9CDD2", "surface-container-low": "#FAFAFA", surface: "#FAFAFA", "secondary-fixed": "#C9CDD2", "on-tertiary-fixed": "#111315", "on-tertiary-fixed-variant": "#111315", "inverse-primary": "#C9CDD2", "surface-container-lowest": "#FAFAFA", "on-primary": "#FAFAFA", "on-error": "#FAFAFA", "on-primary-fixed": "#111315", "on-secondary": "#FAFAFA", "tertiary-fixed-dim": "#C9CDD2", outline: "#C9CDD2", "surface-container": "#C9CDD2", "surface-variant": "#FAFAFA", secondary: "#C9CDD2", "primary-fixed-dim": "#111315", "on-secondary-fixed": "#111315", "on-surface-variant": "#111315", "inverse-surface": "#111315", "surface-bright": "#FAFAFA", "on-tertiary-container": "#111315",
+                    accent: "#D8C3A5"
+                },
+                borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"},
+                spacing: {gutter: "24px", "margin-desktop": "48px", "margin-mobile": "16px", "container-max": "1280px", base: "8px"},
+                fontFamily: {"display-lg-mobile": ["Hanken Grotesk"], "headline-md": ["Hanken Grotesk"], "body-md": ["Inter"], "headline-sm": ["Hanken Grotesk"], "display-lg": ["Hanken Grotesk"], "label-sm": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], headline: ["Hanken Grotesk"], display: ["Hanken Grotesk"], body: ["Inter"], label: ["Inter"]},
+                fontSize: {"display-lg-mobile": ["40px", {lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "800"}], "headline-md": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}], "headline-sm": ["24px", {lineHeight: "32px", fontWeight: "700"}], "display-lg": ["64px", {lineHeight: "72px", letterSpacing: "-0.02em", fontWeight: "800"}], "label-sm": ["12px", {lineHeight: "16px", fontWeight: "500"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "label-md": ["14px", {lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600"}]}
+            }
+        }
+    };
+</script>
+<style>
+    body {
+        background-color: #FAFAFA;
+        color: #111315;
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(186, 202, 197, 0.3);
+    }
+    .image-filter {
+        filter: grayscale(100%) contrast(120%);
+    }
+    .image-overlay {
+        background: linear-gradient(to bottom, rgba(17, 19, 21, 0.4), rgba(17, 19, 21, 0.9));
+    }
+    
+    @keyframes float {
+        0% { transform: translateY(0px) translateX(-50%); }
+        50% { transform: translateY(-5px) translateX(-50%); }
+        100% { transform: translateY(0px) translateX(-50%); }
+    }
+    @keyframes floatSubtle {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+    }
+    .animate-float-subtle {
+        animation: floatSubtle 6s ease-in-out infinite;
+    }
+    @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fadeSlideUp 0.8s ease-out forwards;
+        opacity: 0;
+    }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    
+    .dynamic-island {
+        background: rgba(17, 19, 21, 0.85);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transform: translateX(-50%);
+        left: 50%;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        height: 64px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        max-width: 95vw;
+    }
+    @media (min-width: 768px) {
+        .dynamic-island {
+            animation: float 6s ease-in-out infinite;
+            background: rgba(17, 19, 21, 0.75);
+            height: 56px;
+            max-width: 90vw;
+        }
+    }
+    .dynamic-island:hover {
+        box-shadow: 0 10px 30px rgba(216, 195, 165, 0.25);
+    }
+    .dynamic-island.expanded {
+        cursor: default;
+    }
+    #islandHamburger {
+        width: 120px;
+        height: 100%;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+    .dynamic-island.expanded #islandHamburger {
+        width: 0;
+        opacity: 0;
+        padding: 0;
+        gap: 0;
+        pointer-events: none;
+    }
+    #islandContent {
+        max-width: 0;
+        opacity: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .dynamic-island.expanded #islandContent {
+        max-width: calc(100vw - 32px);
+        opacity: 1;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    @media (min-width: 768px) {
+        .dynamic-island.expanded #islandContent {
+            max-width: 800px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+    }
+    
+    /* Touch targets */
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* Auto scroll */
+    .scroller {
+        overflow: hidden;
+        -webkit-mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+        mask: linear-gradient(90deg, transparent, white 10%, white 90%, transparent);
+    }
+    .scroller__inner {
+        padding-block: 1rem;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 1.5rem;
+        animation: scroll 40s forwards linear infinite;
+        width: max-content;
+    }
+    .scroller__inner:hover {
+        animation-play-state: paused;
+    }
+    @keyframes scroll {
+        to { transform: translate(calc(-50% - 0.75rem)); }
+    }
+
+    /* Gradient Text */
+    .text-gradient {
+        background: linear-gradient(135deg, #D8C3A5 0%, #C9CDD2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+    }
+
+    /* WhatsApp Button adjusted */
+    .whatsapp-btn {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background-color: #25D366;
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        z-index: 100;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .whatsapp-btn:hover {
+        transform: scale(1.1) rotate(10deg);
+    }
+</style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden">
+
+<a href="https://wa.me/34676646358" target="_blank" class="whatsapp-btn animate-fade-in delay-200">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+        <path d="M12.004 2.012A9.957 9.957 0 002.04 11.97c0 1.62.392 3.167 1.107 4.542L1.828 21.6l5.22-1.37a9.92 9.92 0 004.956 1.32h.004a9.957 9.957 0 009.96-9.96A9.965 9.965 0 0012.004 2.012zm0 16.712a8.23 8.23 0 01-4.195-1.15l-.3-.178-3.116.818.832-3.04-.196-.312a8.214 8.214 0 01-1.25-4.38c0-4.54 3.69-8.23 8.23-8.23a8.22 8.22 0 018.22 8.23 8.232 8.232 0 01-8.22 8.24zm4.512-6.17c-.247-.123-1.464-.723-1.692-.806-.227-.083-.393-.124-.558.123-.165.247-.64 .806-.784.97-.145.165-.29.186-.537.062-.247-.124-1.045-.385-1.99-1.23-.736-.657-1.233-1.47-1.378-1.717-.145-.247-.015-.38.108-.503.11-.11.247-.288.37-.432.124-.144.165-.247.248-.412.083-.165.04-.31-.02-.432-.063-.124-.558-1.347-.765-1.844-.2-.486-.403-.42-.558-.428l-.475-.008c-.165 0-.433.062-.66.31-.226.247-.866.845-.866 2.062 0 1.217.887 2.392 1.01 2.557.124.165 1.745 2.663 4.23 3.674.59.24 1.05.383 1.41.49.593.188 1.133.16 1.558.097.476-.07 1.464-.598 1.67-1.175.207-.577.207-1.07.145-1.175-.062-.103-.227-.165-.475-.29z"/>
+    </svg>
+</a>
+
+<!-- Dynamic Island Navigation -->
+<nav id="dynamicIsland" class="fixed top-6 z-50 dynamic-island rounded-full flex items-center" onclick="if(!this.classList.contains('expanded')) this.classList.add('expanded');">
+  <div id="islandHamburger" class="flex-shrink-0 text-white">
+    <img alt="Zuka Studio Logo" class="h-8 w-8 object-contain" src="ChatGPT%20Image%209%20jul%202026,%2019_07_51.png"/>
+    <span class="material-symbols-outlined">menu</span>
+  </div>
+
+  <div id="islandContent" class="flex items-center gap-4 md:gap-6 whitespace-nowrap hide-scrollbar">
+    <div class="flex items-center gap-3">
+        <img alt="Zuka Studio Logo" class="h-8 w-8 object-contain" src="ChatGPT%20Image%209%20jul%202026,%2019_07_51.png"/>
+    </div>
+    <div class="h-5 w-[1px] bg-white/20 hidden md:block"></div>
+    <div class="flex items-center gap-4 md:gap-6">
+        <a class="font-label-md text-label-sm text-white/80 hover:text-accent transition-colors touch-target" href="#" data-i18n="nav_classes" onclick="event.stopPropagation()">Klaseak</a>
+        <a class="font-label-md text-label-sm text-white/80 hover:text-accent transition-colors touch-target" href="#" data-i18n="nav_schedule" onclick="event.stopPropagation()">Ordutegiak</a>
+    </div>
+    <div class="h-5 w-[1px] bg-white/20"></div>
+    <div class="flex items-center gap-2">
+        <button class="font-label-md text-label-sm text-white/80 transition-all hover:text-accent touch-target" id="lang-eu" onclick="event.stopPropagation(); setLanguage('eu')">EU</button>
+        <span class="text-white/40 text-xs">|</span>
+        <button class="font-label-md text-label-sm text-white/80 transition-all hover:text-accent touch-target" id="lang-es" onclick="event.stopPropagation(); setLanguage('es')">ES</button>
+    </div>
+    <button class="bg-accent text-on-primary-fixed font-label-md text-label-sm px-4 md:px-5 py-2 rounded-full hover:bg-opacity-90 transition-all shadow-[0_0_15px_rgba(216,195,165,0.4)] touch-target" data-i18n="nav_book" onclick="event.stopPropagation()">
+        Erreserbatu
+    </button>
+    <button class="ml-1 md:ml-2 text-white/50 hover:text-white transition-colors flex items-center justify-center flex-shrink-0 touch-target" onclick="event.stopPropagation(); document.getElementById('dynamicIsland').classList.remove('expanded');">
+        <span class="material-symbols-outlined text-lg">close</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-24 pb-16 md:pt-20 md:pb-20 animate-fade-in">
+<div class="absolute inset-0 z-0">
+<img alt="Dance Studio" class="w-full h-full object-cover image-filter" src="https://lh3.googleusercontent.com/aida/AP1WRLvKkrC604il8bQsuaElX5Wu3BM4uQOgqE2mOFNX5OWm8TW9yIQJxmLkurcuZiSQ-N4Bw0hIaUPbi1YYt7YuCz_rNIHXAQUx5MqaivHBt_bE941jEuw-OhIiE7g0iAcR6IX-oC3bivG79w40yI232qqNLCO1pNwhD8YTkTzHOZBYBh0YrCW7FMpG86yUYCl1MVjKI5ceYr5Upo5lrmSs1J60FKYh774qx3nWBDL-bmn6YKO4SG95UJ9NRJi-"/>
+<div class="absolute inset-0 image-overlay"></div>
+</div>
+<div class="relative z-10 max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop w-full flex flex-col items-center text-center mt-8 md:mt-0">
+<img alt="Zuka Studio Logo" class="max-w-[80%] w-auto h-auto max-h-28 md:max-h-48 object-contain mb-8 drop-shadow-2xl" src="ChatGPT%20Image%209%20jul%202026,%2019_07_51.png"/>
+<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-surface-container-high mb-8 md:mb-10 max-w-2xl px-4 md:px-0" data-i18n="hero_desc">
+    Urretxun dantza hezkuntza maila gorenera eramaten. Batu gure dantzari sutsuen komunitatera eta ezagutu zure benetako potentziala mugimenduaren, zehaztasunaren eta artearen bidez.
+</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-accent text-on-primary-fixed font-label-md text-label-md px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-[0_0_20px_rgba(216,195,165,0.3)]" data-i18n="hero_join">
+    Batu klase batera
+</button>
+<button class="bg-transparent border border-outline text-on-primary font-label-md text-label-md px-8 py-4 rounded-full hover:bg-surface/10 transition-colors" data-i18n="hero_schedule">
+    Ikusi ordutegia
+</button>
+</div>
+</div>
+</section>
+
+
+<!-- Schedule Section -->
+<section class="py-16 md:py-24 bg-surface-bright relative overflow-hidden animate-fade-in delay-100">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Text & Grid -->
+        <div class="flex flex-col">
+            <h2 class="font-display-lg-mobile md:font-headline-md text-headline-md text-on-background mb-4" data-i18n="schedule_title">Ordutegiak</h2>
+            <div class="w-24 h-1 bg-accent rounded-full mb-8"></div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-10" data-i18n="schedule_desc">
+                Ezagutu gure klaseen ordutegiak eta aurkitu zuretzat egokiena den taldea.
+            </p>
+            <div class="glass-card p-6 rounded-2xl shadow-lg border-white/20 md:border-white/50">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-surface-container pb-4">
+                        <span class="font-label-md text-label-md text-on-background">Haurrak (Urban)</span>
+                        <span class="font-body-md text-sm text-surface-tint">Astearte / Ostegun 17:00</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-surface-container pb-4">
+                        <span class="font-label-md text-label-md text-on-background">Gazteak (K-Pop)</span>
+                        <span class="font-body-md text-sm text-surface-tint">Asteazken 18:00</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-surface-container pb-4">
+                        <span class="font-label-md text-label-md text-on-background">Helduak (Garaikidea)</span>
+                        <span class="font-body-md text-sm text-surface-tint">Astelehen 19:30</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-label-md text-label-md text-on-background">Masterclass</span>
+                        <span class="font-body-md text-sm text-accent font-bold">Ostiralero 18:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3D Render -->
+        <div class="relative h-[300px] md:h-[400px] w-full flex items-center justify-center lg:justify-end md:animate-float-subtle">
+            <div class="absolute inset-0 bg-accent/20 blur-[100px] rounded-full w-3/4 h-3/4 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="relative z-10 w-full max-w-sm h-56 md:h-80 border-2 border-dashed border-accent/50 rounded-2xl flex items-center justify-center bg-surface-container/30 backdrop-blur-sm p-6 text-center">
+                <p class="font-label-md text-on-surface-variant/70 italic" data-i18n="placeholder_img">"Hemen zuek eskatutako argazkiak joango dira"</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-16 md:py-24 bg-surface relative overflow-hidden animate-fade-in delay-200">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-col-reverse lg:flex-row">
+        <!-- 3D Render -->
+        <div class="relative h-[300px] md:h-[400px] w-full flex items-center justify-center lg:justify-start md:animate-float-subtle order-2 lg:order-1" style="animation-delay: 2s;">
+            <div class="absolute inset-0 bg-primary/10 blur-[100px] rounded-full w-3/4 h-3/4 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="relative z-10 w-full max-w-sm h-56 md:h-80 border-2 border-dashed border-accent/50 rounded-2xl flex items-center justify-center bg-surface-container/30 backdrop-blur-sm p-6 text-center">
+                <p class="font-label-md text-on-surface-variant/70 italic" data-i18n="placeholder_img">"Hemen zuek eskatutako argazkiak joango dira"</p>
+            </div>
+        </div>
+        <!-- Text & Contact Cards -->
+        <div class="flex flex-col order-1 lg:order-2">
+            <h2 class="font-display-lg-mobile md:font-headline-md text-headline-md text-on-background mb-4" data-i18n="contact_title">Hitz egin dezagun</h2>
+            <div class="w-24 h-1 bg-accent rounded-full mb-8"></div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Location -->
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-lg border-white/20 md:border-white/50">
+                    <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 text-accent">
+                        <span class="material-symbols-outlined text-2xl">location_on</span>
+                    </div>
+                    <h3 class="font-headline-sm text-label-md text-on-background mb-2" data-i18n="info_studio">Estudioa</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant mb-4">Labeaga Kalea, 52<br/>Urretxu, Euskal Herria</p>
+                    <button class="font-label-md text-xs text-accent flex items-center hover:opacity-80 transition-opacity">
+                        <span data-i18n="info_directions">Nola iritsi</span> <span class="material-symbols-outlined ml-1 text-[16px]">arrow_forward</span>
+                    </button>
+                </div>
+                <!-- WhatsApp -->
+                <div class="glass-card p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-lg border-white/20 md:border-white/50 bg-gradient-to-br from-white/60 to-white/20">
+                    <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 text-[#25D366]">
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.004 2.012A9.957 9.957 0 002.04 11.97c0 1.62.392 3.167 1.107 4.542L1.828 21.6l5.22-1.37a9.92 9.92 0 004.956 1.32h.004a9.957 9.957 0 009.96-9.96A9.965 9.965 0 0012.004 2.012zm0 16.712a8.23 8.23 0 01-4.195-1.15l-.3-.178-3.116.818.832-3.04-.196-.312a8.214 8.214 0 01-1.25-4.38c0-4.54 3.69-8.23 8.23-8.23a8.22 8.22 0 018.22 8.23 8.232 8.232 0 01-8.22 8.24zm4.512-6.17c-.247-.123-1.464-.723-1.692-.806-.227-.083-.393-.124-.558.123-.165.247-.64 .806-.784.97-.145.165-.29.186-.537.062-.247-.124-1.045-.385-1.99-1.23-.736-.657-1.233-1.47-1.378-1.717-.145-.247-.015-.38.108-.503.11-.11.247-.288.37-.432.124-.144.165-.247.248-.412.083-.165.04-.31-.02-.432-.063-.124-.558-1.347-.765-1.844-.2-.486-.403-.42-.558-.428l-.475-.008c-.165 0-.433.062-.66.31-.226.247-.866.845-.866 2.062 0 1.217.887 2.392 1.01 2.557.124.165 1.745 2.663 4.23 3.674.59.24 1.05.383 1.41.49.593.188 1.133.16 1.558.097.476-.07 1.464-.598 1.67-1.175.207-.577.207-1.07.145-1.175-.062-.103-.227-.165-.475-.29z"/></svg>
+                    </div>
+                    <h3 class="font-headline-sm text-label-md text-on-background mb-2">WhatsApp</h3>
+                    <p class="font-body-md text-sm text-on-surface-variant mb-4">676 64 63 58<br/><span data-i18n="info_hours">Astelehenetik Larunbatera</span></p>
+                    <a href="https://wa.me/34676646358" target="_blank" class="font-label-md text-xs text-[#25D366] flex items-center hover:opacity-80 transition-opacity">
+                        <span data-i18n="info_call">Deitu Orain</span> <span class="material-symbols-outlined ml-1 text-[16px]">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-16 md:py-24 bg-surface-bright animate-fade-in delay-200 overflow-hidden">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mb-16">
+<h2 class="font-display-lg-mobile md:font-headline-md text-headline-md text-on-background mb-4" data-i18n="test_title">Ikasleen Ahotsak</h2>
+<div class="w-24 h-1 bg-accent rounded-full"></div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="scroller">
+<div class="scroller__inner">
+<div class="shrink-0 w-[300px] md:w-[400px] glass-card bg-white/40 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-white/20 md:border-white/50">
+<div class="flex text-accent mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 italic" data-i18n="test_1">
+    "Zuka Studio-ko irakasleek zure onena ematera bultzatzen zaituzte. Klase garaikideek nire teknika eraldatu dute."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-accent font-label-md mr-4 font-bold text-lg shadow-inner">M</div>
+<div class="font-label-md text-label-md text-on-background">Maria G.</div>
+</div>
+</div>
+
+<div class="shrink-0 w-[300px] md:w-[400px] glass-card bg-white/40 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-white/20 md:border-white/50">
+<div class="flex text-accent mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 italic" data-i18n="test_2">
+    "Instalazio ikaragarriak eta irakaskuntza bikaina. Astero irrikan nago nire hip hop saioak hasteko."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-accent font-label-md mr-4 font-bold text-lg shadow-inner">J</div>
+<div class="font-label-md text-label-md text-on-background">Jon A.</div>
+</div>
+</div>
+
+<div class="shrink-0 w-[300px] md:w-[400px] glass-card bg-white/40 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-white/20 md:border-white/50">
+<div class="flex text-accent mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 italic" data-i18n="test_3">
+    "Zuka ez da akademia bat bakarrik; komunitate bat da. Teknika entrenamendua ezin hobea da."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-accent font-label-md mr-4 font-bold text-lg shadow-inner">E</div>
+<div class="font-label-md text-label-md text-on-background">Elena R.</div>
+</div>
+</div>
+
+<!-- Duplicated items for scroll -->
+<div class="shrink-0 w-[300px] md:w-[400px] glass-card bg-white/40 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-white/20 md:border-white/50">
+<div class="flex text-accent mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 italic" data-i18n="test_1">
+    "Zuka Studio-ko irakasleek zure onena ematera bultzatzen zaituzte. Klase garaikideek nire teknika eraldatu dute."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-accent font-label-md mr-4 font-bold text-lg shadow-inner">M</div>
+<div class="font-label-md text-label-md text-on-background">Maria G.</div>
+</div>
+</div>
+
+<div class="shrink-0 w-[300px] md:w-[400px] glass-card bg-white/40 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-white/20 md:border-white/50">
+<div class="flex text-accent mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 italic" data-i18n="test_2">
+    "Instalazio ikaragarriak eta irakaskuntza bikaina. Astero irrikan nago nire hip hop saioak hasteko."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-accent font-label-md mr-4 font-bold text-lg shadow-inner">J</div>
+<div class="font-label-md text-label-md text-on-background">Jon A.</div>
+</div>
+</div>
+
+<div class="shrink-0 w-[300px] md:w-[400px] glass-card bg-white/40 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border-white/20 md:border-white/50">
+<div class="flex text-accent mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 italic" data-i18n="test_3">
+    "Zuka ez da akademia bat bakarrik; komunitate bat da. Teknika entrenamendua ezin hobea da."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-accent font-label-md mr-4 font-bold text-lg shadow-inner">E</div>
+<div class="font-label-md text-label-md text-on-background">Elena R.</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- Instagram Section -->
+<section class="py-16 md:py-24 bg-surface relative overflow-hidden animate-fade-in delay-100">
+<div class="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-accent via-surface to-surface"></div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Text -->
+        <div class="flex flex-col text-on-background">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#bc1888] flex items-center justify-center mb-8 shadow-lg transform -rotate-6 hover:rotate-0 transition-transform animate-[bounce_3s_infinite] cursor-pointer" onclick="window.open('https://www.instagram.com/zukastudio_/', '_blank')">
+                <svg fill="white" width="32" height="32" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm3.98-10.822a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </div>
+            <h2 class="font-headline-md text-headline-sm md:text-headline-md mb-4" data-i18n="insta_title">Jarraitu gure urratsak</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl" data-i18n="insta_desc">
+                Ezagutu gure egunerokoa, ikusi klaseetako koreografiak eta egon zaitez azken berrien jakinaren gainean. Ez galdu ezer!
+            </p>
+            <a href="https://www.instagram.com/zukastudio_/" target="_blank" rel="noopener noreferrer" class="group w-fit inline-flex items-center gap-3 bg-accent text-on-primary-fixed font-label-md text-label-md px-8 py-4 rounded-full hover:bg-opacity-90 transition-all shadow-[0_0_20px_rgba(216,195,165,0.2)]">
+                <span>@zukastudio_</span>
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+        </div>
+        <!-- 3D Render -->
+        <div class="relative h-[300px] md:h-[400px] w-full flex items-center justify-center md:animate-float-subtle">
+            <div class="relative z-10 w-full max-w-sm h-56 md:h-80 border-2 border-dashed border-accent/50 rounded-2xl flex items-center justify-center bg-surface-container/30 backdrop-blur-sm p-6 text-center">
+                <p class="font-label-md text-on-surface-variant/70 italic" data-i18n="placeholder_img">"Hemen zuek eskatutako argazkiak joango dira"</p>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="w-full py-20 bg-[#111315] text-white relative overflow-hidden animate-fade-in delay-200">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
+<div class="md:col-span-5 flex flex-col">
+<div class="flex items-center gap-4 mb-6">
+<img alt="Zuka Studio Logo" class="h-12 w-12 object-contain" src="ChatGPT%20Image%209%20jul%202026,%2019_07_51.png"/>
+<div class="font-display-lg text-headline-sm text-white tracking-tight">
+    Zuka Studio
+</div>
+</div>
+<p class="font-body-md text-body-md text-surface-variant/70 max-w-md mb-8" data-i18n="footer_desc">
+    Urretxun dantza hezkuntza maila gorenera eramaten. Batu gure dantzari sutsuen komunitatera eta ezagutu zure benetako potentziala mugimenduaren bidez.
+</p>
+<div class="font-body-md text-label-sm text-surface-variant/50">
+    © 2024 Zuka Studio. Labeaga Kalea, 52, Urretxu.<br/>Tel: 676 64 63 58
+</div>
+</div>
+<div class="md:col-span-3 flex flex-col">
+<h4 class="font-headline-sm text-label-md text-white mb-6 uppercase tracking-wider text-sm opacity-50" data-i18n="footer_explore">Arakatu</h4>
+<nav class="flex flex-col space-y-4">
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="nav_classes">Klaseak</a>
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="nav_schedule">Ordutegiak</a>
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="footer_instructors">Irakasleak</a>
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="footer_pricing">Prezioak</a>
+</nav>
+</div>
+<div class="md:col-span-4 flex flex-col md:items-end">
+<div class="flex flex-col w-full md:w-auto">
+<h4 class="font-headline-sm text-label-md text-white mb-6 uppercase tracking-wider text-sm opacity-50 md:text-right" data-i18n="footer_legal">Lege-oharra</h4>
+<nav class="flex flex-col space-y-4 mb-10 md:items-end">
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="footer_privacy">Pribatutasun Politika</a>
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="footer_terms">Zerbitzu Baldintzak</a>
+<a class="font-body-md text-label-md text-surface-variant/80 hover:text-accent transition-colors" href="#" data-i18n="info_contact">Jarri Harremanetan</a>
+</nav>
+
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+    const translations = {
+        eu: {
+            nav_classes: "Klaseak",
+            nav_schedule: "Ordutegiak",
+            nav_book: "Erreserbatu",
+            hero_title: 'Zure erritmoa menderatu <span class="text-gradient">Zuka Studio</span>-n',
+            hero_desc: "Urretxun dantza hezkuntza maila gorenera eramaten. Batu gure dantzari sutsuen komunitatera eta ezagutu zure benetako potentziala mugimenduaren, zehaztasunaren eta artearen bidez.",
+            hero_join: "Batu klase batera",
+            hero_schedule: "Ikusi ordutegia",
+            hero_next_master: "Hurrengo Masterclass-a",
+            hero_flow: "Fluxu Garaikidea",
+            hero_spots: "4 leku libre",
+            stat_instructors: "Irakasleak",
+            stat_studios: "Estudio Gela",
+            stat_classes: "Klase Astero",
+            info_studio: "Estudioa",
+            info_directions: "Nola iritsi",
+            info_contact: "Jarri Harremanetan",
+            info_hours: "Astelehenetik Larunbatera",
+            info_call: "Deitu Orain",
+            test_title: "Ikasleen Ahotsak",
+            test_1: '"Zuka Studio-ko irakasleek zure onena ematera bultzatzen zaituzte. Klase garaikideek nire teknika eraldatu dute."',
+            test_2: '"Instalazio ikaragarriak eta irakaskuntza bikaina. Astero irrikan nago nire hip hop saioak hasteko."',
+            test_3: '"Zuka ez da akademia bat bakarrik; komunitate bat da. Teknika entrenamendua ezin hobea da."',
+            footer_desc: "Urretxun dantza hezkuntza maila gorenera eramaten. Batu gure dantzari sutsuen komunitatera eta ezagutu zure benetako potentziala mugimenduaren bidez.",
+            footer_explore: "Arakatu",
+            footer_instructors: "Irakasleak",
+            footer_pricing: "Prezioak",
+            footer_legal: "Lege-oharra",
+            footer_privacy: "Pribatutasun Politika",
+            footer_terms: "Zerbitzu Baldintzak",
+            footer_designed: "Diseinua:",
+            insta_title: "Jarraitu gure urratsak",
+            insta_desc: "Ezagutu gure egunerokoa, ikusi klaseetako koreografiak eta egon zaitez azken berrien jakinaren gainean. Ez galdu ezer!",
+            schedule_title: "Ordutegiak",
+            schedule_desc: "Ezagutu gure klaseen ordutegiak eta aurkitu zuretzat egokiena den taldea.",
+            contact_title: "Hitz egin dezagun",
+            placeholder_img: "Hemen zuek eskatutako argazkiak joango dira"
+        },
+        es: {
+            nav_classes: "Clases",
+            nav_schedule: "Horarios",
+            nav_book: "Reservar",
+            hero_title: 'Domina tu ritmo en <span class="text-gradient">Zuka Studio</span>',
+            hero_desc: "Elevando la educación de la danza en Urretxu. Únete a nuestra comunidad de bailarines apasionados y descubre tu verdadero potencial a través del movimiento.",
+            hero_join: "Únete a una clase",
+            hero_schedule: "Ver horario",
+            hero_next_master: "Siguiente Masterclass",
+            hero_flow: "Flujo Contemporáneo",
+            hero_spots: "4 plazas libres",
+            stat_instructors: "Instructores",
+            stat_studios: "Salas de Estudio",
+            stat_classes: "Clases Semanales",
+            info_studio: "El Estudio",
+            info_directions: "Cómo llegar",
+            info_contact: "Contáctanos",
+            info_hours: "Lunes a Sábado",
+            info_call: "Llamar Ahora",
+            test_title: "Voces de Alumnos",
+            test_1: '"Los instructores de Zuka Studio te empujan a dar lo mejor de ti. Las clases de contemporáneo han transformado mi técnica."',
+            test_2: '"Instalaciones increíbles y enseñanza de primer nivel. Espero mis sesiones de hip hop todas las semanas."',
+            test_3: '"Zuka no es solo una academia de danza; es una comunidad. La atención al detalle es excelente."',
+            footer_desc: "Elevando la educación de la danza en Urretxu. Únete a nuestra comunidad de bailarines apasionados y descubre tu verdadero potencial a través del movimiento.",
+            footer_explore: "Explorar",
+            footer_instructors: "Instructores",
+            footer_pricing: "Precios",
+            footer_legal: "Legal",
+            footer_privacy: "Política de Privacidad",
+            footer_terms: "Términos de Servicio",
+            footer_designed: "Diseñado por:",
+            insta_title: "Sigue nuestros pasos",
+            insta_desc: "Descubre nuestro día a día, mira las coreografías de las clases y mantente al tanto de las últimas novedades. ¡No te pierdas nada!",
+            schedule_title: "Horarios",
+            schedule_desc: "Descubre los horarios de nuestras clases y encuentra el grupo ideal para ti.",
+            contact_title: "Hablemos",
+            placeholder_img: "Aquí irán las fotos que habéis solicitado"
+        }
+    };
+
+    function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang] && translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        // Activar color del boton
+        document.getElementById('lang-eu').style.color = lang === 'eu' ? '#2dd4bf' : '';
+        document.getElementById('lang-es').style.color = lang === 'es' ? '#2dd4bf' : '';
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        setLanguage('eu');
+    });
+</script>
+
+</body>
+</html>
