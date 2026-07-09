@@ -25,6 +25,9 @@
     };
 </script>
 <style>
+    html {
+        scroll-behavior: smooth;
+    }
     body {
         background-color: #FAFAFA;
         color: #111315;
@@ -256,8 +259,8 @@
     </div>
     <div class="h-5 w-[1px] bg-white/20 hidden md:block"></div>
     <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 mt-4 md:mt-0">
-        <a class="font-label-md text-label-sm text-white/80 hover:text-accent transition-colors touch-target" href="javascript:void(0);" data-i18n="nav_classes" onclick="event.stopPropagation()">Klaseak</a>
-        <a class="font-label-md text-label-sm text-white/80 hover:text-accent transition-colors touch-target" href="javascript:void(0);" data-i18n="nav_schedule" onclick="event.stopPropagation()">Ordutegiak</a>
+        <a class="font-label-md text-label-sm text-white/80 hover:text-accent transition-colors touch-target" href="#ordutegiak" data-i18n="nav_classes" onclick="event.stopPropagation(); document.getElementById('dynamicIsland').classList.remove('expanded');">Klaseak</a>
+        <a class="font-label-md text-label-sm text-white/80 hover:text-accent transition-colors touch-target" href="#ordutegiak" data-i18n="nav_schedule" onclick="event.stopPropagation(); document.getElementById('dynamicIsland').classList.remove('expanded');">Ordutegiak</a>
     </div>
     <div class="h-[1px] w-12 md:h-5 md:w-[1px] bg-white/20 my-2 md:my-0"></div>
     <div class="flex flex-row items-center gap-2">
@@ -265,7 +268,7 @@
         <span class="text-white/40 text-xs">|</span>
         <button class="font-label-md text-label-sm text-white/80 transition-all hover:text-accent touch-target" id="lang-es" onclick="event.stopPropagation(); setLanguage('es')">ES</button>
     </div>
-    <button class="bg-accent text-on-primary-fixed font-label-md text-label-sm px-6 py-3 md:px-5 md:py-2 rounded-full hover:bg-opacity-90 transition-all shadow-[0_0_15px_rgba(216,195,165,0.4)] touch-target mt-2 md:mt-0" data-i18n="nav_book" onclick="event.stopPropagation()">
+    <button class="bg-accent text-on-primary-fixed font-label-md text-label-sm px-6 py-3 md:px-5 md:py-2 rounded-full hover:bg-opacity-90 transition-all shadow-[0_0_15px_rgba(216,195,165,0.4)] touch-target mt-2 md:mt-0" data-i18n="nav_book" onclick="event.stopPropagation(); document.getElementById('dynamicIsland').classList.remove('expanded'); window.location.href='#kontaktua';">
         Erreserbatu
     </button>
   </div>
@@ -295,7 +298,7 @@
 
 
 <!-- Schedule Section -->
-<section class="py-16 md:py-24 bg-surface-bright relative overflow-hidden animate-fade-in delay-100">
+<section id="ordutegiak" class="py-16 md:py-24 bg-surface-bright relative overflow-hidden animate-fade-in delay-100">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <!-- Text & Grid -->
@@ -338,7 +341,7 @@
 </section>
 
 <!-- Contact Section -->
-<section class="py-16 md:py-24 bg-surface relative overflow-hidden animate-fade-in delay-200">
+<section id="kontaktua" class="py-16 md:py-24 bg-surface relative overflow-hidden animate-fade-in delay-200">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center flex-col-reverse lg:flex-row">
         <!-- 3D Render -->
